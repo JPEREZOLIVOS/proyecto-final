@@ -1,0 +1,22 @@
+{% extends 'Finanzas_Personales/base.html' %}
+
+{% block contenido %}
+{% if user.is_authenticated %}
+    <a href="{% url 'Finanzas-Personales-crear' %}">Crear Post</a>
+    <a href="{% url 'Finanzas-Personales-avatar-actualizar' user.id %}">Actualizar Avatar</a>
+    <a href="{% url 'Finanzas-Personales-users-actualizar' user.id %}">Actualizar Profile</a>
+    <a href="{% url 'Finanzas-Personales-mensajes-listar' %}">Mensajes</a>
+{% endif %}
+<ul>
+{% for post in object_list %}
+    <li>
+        {{post.publicado_el}} - - {{post.titulo}}
+        {% if user.is_authenticated %}
+            <a href="{% url 'Finanzas-Personales-borrar' post.id %}">Borrar</a>
+            <a href="{% url 'Finanzas-Personales-actualizar' post.id %}">Actualizar</a>
+        {% endif %}
+        <a href="{% url 'Finanzas-Personales-detalle' post.id %}">Ver</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
